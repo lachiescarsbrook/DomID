@@ -1,0 +1,8 @@
+name: readQC
+channels:
+  - conda-forge
+  - bioconda
+  - default
+dependencies:
+  - bwa=0.7.17
+  - fastq-screen=0.16.0
