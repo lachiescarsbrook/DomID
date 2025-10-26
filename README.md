@@ -106,16 +106,6 @@ wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/${TAXA}_
 wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/${TAXA}_sites.idx -O ./workflow/files/${TAXA}_sites.idx
 ```
 
-### **Download the Mitochondrial Reference Database**
-Finally, to ensure archaeological remains have not been misidentified, and thus stop the incorrect classification of unknown samples as off-target species, we have incorporated `fastqscreen` species identification using a set of mitochondrial reference genomes from taxa common in archaeological deposits. To download, ensure you are still in the `DomID` directory, and use the following:  
-
-```
-TAG="1.0"
-
-wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/mtDNA_ref.zip -O ./workflow/files/mtDNA_ref.zip
-gunzip workflow/files/mtDNA_ref.zip
-```
-
 You are now ready to run `DomID`!
 <br>
 <br>
