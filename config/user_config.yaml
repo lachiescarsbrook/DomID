@@ -1,15 +1,18 @@
 #############################
 #### REQUIRED PARAMETERS ####
 #############################
+#Taxon used to perform DomID
+TAXA="canis"
 
 #Provide an output name for the CanID run
 run: name_of_run
 #Specify the path to file (space- or tab-delimited) containing list of samples formatted: LIBRARY SAMPLE_ID PATH
 files: config/sample_file_list.tsv
 #Specify the path to the reference genome (ensure it has a Y-chromosome)
-path_to_reference_genome: workflow/files/canFam3_withY.fa
+path_to_reference_genome: workflow/files/$TAXA.fa
+
 #Specify the reference panel (depends on target species)
-SNP_panel: dog
+SNP_panel: $TAXA
 #Number of chromosomes (autosomes only)
 chromosomes: 38
 #Labels for sex chromosomes and mitochondria in fasta file 
