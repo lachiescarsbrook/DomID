@@ -112,7 +112,7 @@ Finally, to ensure archaeological remains have not been misidentified, and thus 
 ```
 TAG="1.0"
 
-wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/mtDNA_ref.zip -O ./workflow/files/
+wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/mtDNA_ref.zip -O ./workflow/files/mtDNA_ref.zip
 gunzip workflow/files/mtDNA_ref.zip
 ```
 
