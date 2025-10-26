@@ -71,8 +71,8 @@ To ensure genotypes in each reference panel can be directly compared with the un
 TAG="1.0"
 TAXA="canis"
 
-wget https://github.com/lachiescarsbrook/DomID/releases/download/$TAG/$TAXA.fa.gz -O ./workflow/files/$TAXA.fa.gz
-gunzip workflow/files/$TAXA.fa.gz
+wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/${TAXA}.fa.gz -O ./workflow/files/${TAXA}.fa.gz
+gunzip workflow/files/${TAXA}.fa.gz
 ```
 - :cow2: ***Bos:***
 - :pig2: ***Sus:***
@@ -87,7 +87,7 @@ The reference genome must then be indexed using [`bwa`](https://academic.oup.com
 ```
 mamba create -c bioconda -n bwa bwa
 mamba activate bwa
-bwa index workflow/files/$TAXA.fa
+bwa index workflow/files/${TAXA}.fa
 mamba deactivate bwa
 ```
 
@@ -98,12 +98,12 @@ For each taxa, we have released a reference panel (in binary PLINK format) conta
 TAG="1.0"
 TAXA="canis"
 
-wget https://github.com/lachiescarsbrook/DomID/releases/download/$TAG/$TAXA.bed -O ./workflow/files/$TAXA.bed
-wget https://github.com/lachiescarsbrook/DomID/releases/download/$TAG/$TAXA.bim -O ./workflow/files/$TAXA.bim
-wget https://github.com/lachiescarsbrook/DomID/releases/download/$TAG/$TAXA.fam -O ./workflow/files/$TAXA.fam
-wget https://github.com/lachiescarsbrook/DomID/releases/download/$TAG/$TAXA_sites -O ./workflow/files/$TAXA_sites
-wget https://github.com/lachiescarsbrook/DomID/releases/download/$TAG/$TAXA_sites.bin -O ./workflow/files/$TAXA_sites.bin
-wget https://github.com/lachiescarsbrook/DomID/releases/download/$TAG/$TAXA_sites.idx -O ./workflow/files/$TAXA_sites.idx
+wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/${TAXA}.bed -O ./workflow/files/${TAXA}.bed
+wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/${TAXA}.bim -O ./workflow/files/${TAXA}.bim
+wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/${TAXA}.fam -O ./workflow/files/${TAXA}.fam
+wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/${TAXA}_sites -O ./workflow/files/${TAXA}_sites
+wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/${TAXA}_sites.bin -O ./workflow/files/${TAXA}_sites.bin
+wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/${TAXA}_sites.idx -O ./workflow/files/${TAXA}_sites.idx
 ```
 
 ### **Download the Mitochondrial Reference Database**
@@ -112,7 +112,7 @@ Finally, to ensure archaeological remains have not been misidentified, and thus 
 ```
 TAG="1.0"
 
-wget https://github.com/lachiescarsbrook/DomID/releases/download/$TAG/mtDNA_ref.zip -O ./workflow/files/
+wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/mtDNA_ref.zip -O ./workflow/files/
 gunzip workflow/files/mtDNA_ref.zip
 ```
 
