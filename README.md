@@ -158,9 +158,9 @@ snakemake --use-conda --cores 40
 
 ## **Output**
 The main output of `DomID` are as follows:
-- ***Species Identification:*** using eigenvector multiplication in `smartpca`, `DomID` projects unknown samples onto principal components (PC) calculated from modern reference panels of wild and domestic populations. A PC plot (PC1-2) is stored in the `results/plots` directory (`Run`_PCA_plot.pdf).
-- ***Sex Identification:*** using the differential coverage across autosomes and sex chromosomes, `DomID` infers the molecular sex of unknown samples. An RX/RY plot is stored in the `results/plots` directory (`Run`_SexID_plot.pdf).
-- ***Non-Target Species Identification:*** by running `fastqscreen` with a database of mitochondrial genomes from taxa common in archaeological deposits, `DomID` ensures the unknown samples do not derive from non-target species.
+- **Species Identification:** using eigenvector multiplication in `smartpca`, `DomID` projects unknown samples onto principal components (PC) calculated from modern reference panels of wild and domestic populations. A PC plot (PC1-2) is stored in the `results/plots` directory (`Run`_PCA_plot.pdf).
+- **Sex Identification:** using the differential coverage across autosomes and sex chromosomes, `DomID` infers the molecular sex of unknown samples. An RX/RY plot is stored in the `results/plots` directory (`Run`_SexID_plot.pdf).
+- **Non-Target Species Identification:** by running `fastqscreen` with a database of mitochondrial genomes from taxa common in archaeological deposits, `DomID` ensures the unknown samples do not derive from non-target species.
 
 ### **Sample Summary Statistics**
 For each `Sample`, the following statistics are also calculated, with the output stored in the `results/stats/` directory:
