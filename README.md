@@ -72,7 +72,7 @@ TAG="1.0"
 TAXA="canis"
 
 wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/${TAXA}.fa.gz -O ./workflow/files/${TAXA}.fa.gz
-gunzip workflow/files/${TAXA}.fa.gz
+unzip workflow/files/${TAXA}.fa.gz
 ```
 - :cow2: ***Bos:***
 - :pig2: ***Sus:***
