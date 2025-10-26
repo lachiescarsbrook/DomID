@@ -124,7 +124,8 @@ You are now ready to run `DomID`!
 The `DomID` workflow requires parameters specified in two user-modified files to run, both of which are located in the `config` directory:
 
 
-**1.** `user_config.yaml`: used to set the `Run` name, and specify the paths to both the `sample_file_list.tsv` and the reference genome (e.g. `canis.fa`). There are several other optional parameters that can be modified, with descriptions available in the config file.
+**1.** `user_config.yaml`: used to set the `Run` name, and specify the paths to both the `sample_file_list.tsv` and the reference genome. There are several other optional parameters that can be modified, with descriptions available in the config file.
+**Note:** make sure to specify the desired taxon name in the `path_to_reference_genome`and `SNP_panel` parameters (default: canis), as well as the number and name of chromosomes. 
 
 **2.** `sample_file_list.tsv`: provides a tab- or space-delimited list of library names, sample names, and paths to the paired-end sequencing reads (which must have either the .fq.gz or .fastq.gz suffix)
 
