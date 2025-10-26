@@ -122,10 +122,14 @@ You are now ready to run `DomID`!
 
 ## **Quick Start**
 The `DomID` workflow requires parameters specified in two user-modified files to run, both of which are located in the `config` directory:
-
+<br>
+<br>
 
 **1.** `user_config.yaml`: used to set the `Run` name, and specify the paths to both the `sample_file_list.tsv` and the reference genome. There are several other optional parameters that can be modified, with descriptions available in the config file.
-**Note:** make sure to specify the desired taxon name in the `path_to_reference_genome`and `SNP_panel` parameters (default: canis), as well as the number and name of chromosomes. 
+
+**Note:** make sure to **specify the desired taxon name** in the `path_to_reference_genome`and `SNP_panel` parameters (default: canis), as well as the number and name of chromosomes. 
+<br>
+<br>
 
 **2.** `sample_file_list.tsv`: provides a tab- or space-delimited list of library names, sample names, and paths to the paired-end sequencing reads (which must have either the .fq.gz or .fastq.gz suffix)
 
@@ -139,6 +143,8 @@ The `DomID` workflow requires parameters specified in two user-modified files to
 The `Library Name` string must exactly match the ID found in the name of the paired-end files (e.g. LS0001_A1_L001.fastq.gz). The `Sample Name` column can be used to combine reads from the same individual across multiple lanes or libraries, or simply to change the name of the files generated (must be <39 characters). 
 
 **Note:** a header **must not be included** in the `sample_file_list.tsv`. 
+<br>
+<br>
 
 Once the user-specific parameters have been specified in the `user_config.yaml` and `sample_file_list.tsv`, the workflow, which is defined in the `Snakefile`, can be executed using the following:
 
