@@ -19,7 +19,7 @@ data_status <- data %>% left_join(status_data, by = "Sample") %>% mutate(Status 
 reference=data_status %>% filter(!grepl('Unknown', Status))
 unknown=data_status %>% filter(grepl('Unknown', Status))
 
-#Performs linear discriminant analysis on first 10 principal components, with groups representing dog/wolf distinction
+#Performs linear discriminant analysis on first 10 principal components based on wild/domestic distinction
 lda_model<-lda(Status ~ PC1 + PC2 + PC3 + PC4 + PC5 + PC6 + PC7 + PC8 + PC9 + PC10, data=reference)
 lda_predict <- predict(lda_model, unknown)
 lda_posterior<-round(lda_predict$posterior, 4)
