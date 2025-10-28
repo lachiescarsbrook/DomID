@@ -7,14 +7,20 @@ file=args[1]
 data=read.table(file, sep = "")
 new_column_names=c("Sample","PC1","PC2","PC3","PC4","PC5","PC6","PC7","PC8","PC9","PC10","Group")
 colnames(data) <- new_column_names
-data <-data[!data$Group %in% "Outgroup", ]
+
+#Reads wild/domestic status for reference panel
+status=args[3]
+status_data <- read.table(status, header = TRUE, sep = "\t")
+
+#Adds domestic or wild status labels to each sample
+data_status <- data %>% left_join(status_data, by = "Sample") %>% mutate(Status = if_else(is.na(Status), "Unknown", Status))
+
 #Separates reference panel and unknown individuals
-data$Group <- gsub(".*_Dogs", "Dogs", data$Group)
-data$Group <- gsub(".*_Wolves", "Wolves", data$Group)
-reference=data %>% filter(!grepl('Unknown', Group))
-unknown=data %>% filter(grepl('Unknown', Group))
+reference=data_status %>% filter(!grepl('Unknown', Status))
+unknown=data_status %>% filter(grepl('Unknown', Status))
+
 #Performs linear discriminant analysis on first 10 principal components, with groups representing dog/wolf distinction
-lda_model<-lda(Group ~ PC1 + PC2 + PC3 + PC4 + PC5 + PC6 + PC7 + PC8 + PC9 + PC10, data=reference)
+lda_model<-lda(Status ~ PC1 + PC2 + PC3 + PC4 + PC5 + PC6 + PC7 + PC8 + PC9 + PC10, data=reference)
 lda_predict <- predict(lda_model, unknown)
 lda_posterior<-round(lda_predict$posterior, 4)
 #Output results
