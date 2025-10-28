@@ -104,6 +104,7 @@ wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/${TAXA}.
 wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/${TAXA}_sites -O ./workflow/files/${TAXA}_sites
 wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/${TAXA}_sites.bin -O ./workflow/files/${TAXA}_sites.bin
 wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/${TAXA}_sites.idx -O ./workflow/files/${TAXA}_sites.idx
+wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/${TAXA}_status.txt -O ./workflow/files/${TAXA}_status.txt
 ```
 
 You are now ready to run `DomID`!
