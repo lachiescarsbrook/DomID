@@ -63,13 +63,14 @@ rule plot_pca:
     input:
         evec = expand("results/smartpca/{run}_final_merged.evec", run = config["run"]),
         eval = expand("results/smartpca/{run}_final_merged.eval", run = config["run"]),
-        stats = expand("results/stats/{run}_all_stats.txt", run = config["run"])
+        stats = expand("results/stats/{run}_all_stats.txt", run = config["run"]),
+        status = expand("workflow/files/{taxa}_status.txt", taxa = config["SNP_panel"])
     output:
         expand("results/plots/{run}_PCA_plot.pdf", run = config["run"])
     conda:
         "../envs/lda.yaml"
     shell:
-        "Rscript workflow/scripts/PCA.R {input.evec} {input.eval} {output} {input.stats}"
+        "Rscript workflow/scripts/PCA.R {input.evec} {input.eval} {output} {input.stats} {input.status}"
 
 #Plots the results of sex identification
 rule plot_sexID:
@@ -86,10 +87,11 @@ rule plot_sexID:
 #This rule uses linear disciminant analysis to calculate assignment probabilities of samples to reference populations
 rule LDA:
     input:
-        evec = expand("results/smartpca/{run}_final_merged.evec", run = config["run"])
+        evec = expand("results/smartpca/{run}_final_merged.evec", run = config["run"]),
+        status = expand("workflow/files/{taxa}_status.txt", taxa = config["SNP_panel"])
     output:
         expand("results/plots/{run}_posteriors.txt", run = config["run"])
     conda:
         "../envs/lda.yaml"
     shell:
-        "Rscript workflow/scripts/LDA.R {input} {output}"
+        "Rscript workflow/scripts/LDA.R {input.evec} {output} {input.status}"
