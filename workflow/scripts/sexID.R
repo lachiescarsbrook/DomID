@@ -6,7 +6,7 @@ library(dplyr)
 
 #Reads in data
 sex=args[1]
-sex_data <-  read.table(sex, header = TRUE, sep = "\t")
+sex_data <-  read.table(sex, header = TRUE, sep = "\t", fill = TRUE, comment.char = "")
 
 ##SEX ASSIGN
 #Assign confident males
