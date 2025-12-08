@@ -21,8 +21,9 @@ colnames(data_evec) <- new_column_names
 #Adds domestic or wild status labels to each sample
 data_evec_status <- data_evec %>% left_join(status_data, by = "Sample") %>% mutate(Status = if_else(is.na(Status), "Unknown", Status))
 
-#Excludes samples with <50 SNPs
-exclude_samples <- snp_data %>% filter(SNPs < 50) %>% pull(Sample)
+#Excludes samples with too few SNPs
+taxon_snps=args[6]
+exclude_samples <- snp_data %>% filter(SNPs < taxon_snps) %>% pull(Sample)
 plot_data_filtered <- data_evec_status %>% filter(!Sample %in% exclude_samples) %>% left_join(snp_data, by = "Sample")
 
 #Modify labels to include Sample ID + SNP count
