@@ -1,2 +1,2 @@
-Taxa	TaxonID_SNPs	SexID_SNPs	ChrX_male_min	ChrX_male_max	ChrX_female_min	ChrX_female_max	ChrY_male_min	ChrY_male_max	ChrY_female_min	ChrY_female_max
-canis	50	5000	0.25	0.75	0.75	1.25	0.04322211	0.06946789	-0.0001143262	0.0006286262
+Taxa	ChrX_male_min	ChrX_male_max	ChrX_female_min	ChrX_female_max	ChrY_male_min	ChrY_male_max	ChrY_female_min	ChrY_female_max
+canis	0.25	0.75	0.75	1.25	0.04322211	0.06946789	-0.0001143262	0.0006286262
