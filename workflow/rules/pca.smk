@@ -77,14 +77,18 @@ rule plot_pca:
 #Plots the results of sex identification
 rule plot_sexID:
     input:
-        stats = expand("results/stats/{run}_all_stats.txt", run = config["run"])
+        stats = expand("results/stats/{run}_all_stats.txt", run = config["run"]),
+        benchmark = "workflow/files/benchmark.txt"
     output:
         pdf = expand("results/plots/{run}_sexID_plot.pdf", run = config["run"]),
         txt = expand("results/plots/{run}_sexID.txt", run = config["run"])
+    params:
+        sex = config["sexSNP"],
+            taxa = config["SNP_panel"]
     conda:
         "../envs/lda.yaml"
     shell:
-        "Rscript workflow/scripts/sexID.R {input.stats} {output.pdf} {output.txt}"
+        "Rscript workflow/scripts/sexID.R {input.stats} {params.sex} {params.taxa} {input.benchmark} {output.pdf} {output.txt}"
 
 #This rule uses linear disciminant analysis to calculate assignment probabilities of samples to reference populations
 rule LDA:
