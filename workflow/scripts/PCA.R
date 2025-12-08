@@ -22,7 +22,7 @@ colnames(data_evec) <- new_column_names
 data_evec_status <- data_evec %>% left_join(status_data, by = "Sample") %>% mutate(Status = if_else(is.na(Status), "Unknown", Status))
 
 #Excludes samples with too few SNPs
-taxon_snps=args[6]
+taxon_snps=as.numeric(args[6])
 exclude_samples <- snp_data %>% filter(SNPs < taxon_snps) %>% pull(Sample)
 plot_data_filtered <- data_evec_status %>% filter(!Sample %in% exclude_samples) %>% left_join(snp_data, by = "Sample")
 
