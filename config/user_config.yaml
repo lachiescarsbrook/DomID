@@ -16,9 +16,6 @@ chromosomes: 38
 femaleID: chrX
 maleID: chrY
 mtDNAID: chrM
-#Set cut-offs for species/sex identification (taxa-specific, see Benchmarking)
-taxonSNP: 50
-sexSNP: 5000
 
 #############################
 #### OPTIONAL PARAMETERS ####
