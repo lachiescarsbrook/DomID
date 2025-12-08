@@ -65,12 +65,14 @@ rule plot_pca:
         eval = expand("results/smartpca/{run}_final_merged.eval", run = config["run"]),
         stats = expand("results/stats/{run}_all_stats.txt", run = config["run"]),
         status = expand("workflow/files/{taxa}_status.txt", taxa = config["SNP_panel"])
+    params:
+        snps = config["taxonSNP"]
     output:
         expand("results/plots/{run}_PCA_plot.pdf", run = config["run"])
     conda:
         "../envs/lda.yaml"
     shell:
-        "Rscript workflow/scripts/PCA.R {input.evec} {input.eval} {output} {input.stats} {input.status}"
+        "Rscript workflow/scripts/PCA.R {input.evec} {input.eval} {output} {input.stats} {input.status} {params.snps}"
 
 #Plots the results of sex identification
 rule plot_sexID:
