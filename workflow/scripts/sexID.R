@@ -6,17 +6,28 @@ library(dplyr)
 
 #Reads in data
 sex=args[1]
-sex_data <-  read.table(sex, header = TRUE, sep = "\t", fill = TRUE, comment.char = "")
+sex_unfiltered <- read.table(sex, header = TRUE, sep = "\t", fill = TRUE, comment.char = "")
+
+#Filter based on the number of nuclear reads
+sexSNP=as.numeric(args[2])
+sex_unfiltered$nuclear_reads = sex_unfiltered$Mapped_Reads_Q30_NoDup-sex_unfiltered$mtDNA_Reads
+sex_data = sex_unfiltered %>% filter(nuclear_reads > sexSNP)
+
+#Benchmarking cutoffs
+taxa=args[3]
+benchmark=args[4]
+benchmark_df <- read.table(benchmark, header = TRUE, sep = "\t", fill = TRUE, comment.char = "")
+benchmark_taxa <- benchmark_df %>% filter(Taxa == taxa)
 
 ##SEX ASSIGN
 #Assign confident males
-sex_data$SexID[sex_data$RY >= 0.04322211 & sex_data$RY <= 0.06946789 & sex_data$RX >= 0.25 & sex_data$RX <= 0.75] <- "M"
+sex_data$SexID[sex_data$RY >= benchmark_taxa$ChrY_male_min & sex_data$RY <= benchmark_taxa$ChrY_male_max & sex_data$RX >= benchmark_taxa$ChrX_male_min & sex_data$RX <= benchmark_taxa$ChrX_male_max] <- "M"
 #Assign possible males
-sex_data$SexID[is.na(sex_data$SexID) & sex_data$RY > 0.02129674 & sex_data$RX < 0.75] <- "?M"
+sex_data$SexID[is.na(sex_data$SexID) & sex_data$RY > ((benchmark_taxa$ChrY_male_min-benchmark_taxa$ChrY_female_max)/2) & sex_data$RX < benchmark_taxa$ChrX_male_max] <- "?M"
 #Assign confident females
-sex_data$SexID[is.na(sex_data$RY) >= -0.0001143262 & sex_data$RY <= 0.0006286262 & sex_data$RX >= 0.75 & sex_data$RX <= 1.25] <- "F"
+sex_data$SexID[is.na(sex_data$RY) >= benchmark_taxa$ChrY_female_min & sex_data$RY <= benchmark_taxa$ChrY_female_max & sex_data$RX >= benchmark_taxa$ChrX_female_min & sex_data$RX <= benchmark_taxa$ChrX_female_max] <- "F"
 #Assign possible females
-sex_data$SexID[is.na(sex_data$SexID) & sex_data$RY < 0.02129674 & sex_data$RX > 0.75] <- "?F"
+sex_data$SexID[is.na(sex_data$SexID) & sex_data$RY < ((benchmark_taxa$ChrY_male_min-benchmark_taxa$ChrY_female_max)/2) & sex_data$RX > benchmark_taxa$ChrX_female_min] <- "?F"
 #Assign unknown to rest
 sex_data$SexID[is.na(sex_data$SexID)] <- "U"
 
@@ -28,11 +39,11 @@ sex_data$fill_var <- sex_data$SexID
 sex_data <- sex_data %>% mutate(label = paste0(Sample, " (", Mapped_Reads_Q30_NoDup, " reads)"))
 
 #Plots RX/RY with unknown samples labelled
-pdf(args[2])
-ggplot(sex_data, aes(x = RX, y = RY, label = Sample, fill = fill_var)) + geom_hline(yintercept = 0.02129674, linetype = "dashed", colour = "grey", linewidth = 0.5) + annotate("rect", xmin = -Inf, xmax = Inf, ymin = -0.0001143262, ymax = 0.0006286262, fill = "pink", alpha = 0.4) + annotate("rect", xmin = -Inf, xmax = Inf, ymin = 0.04322211, ymax = 0.06946789, fill = "#0453b1", alpha = 0.2) + geom_vline(xintercept = c(0.5), colour = "#0453b1", linewidth = 1) + geom_vline(xintercept = c(1), colour = "pink", linewidth = 1) + geom_errorbarh(aes(xmin = RX_Min, xmax = RX_Max), height = 0.005, colour="grey") + geom_errorbar(aes(ymin = (RY - RY_SE), ymax = (RY + RY_SE)), width = 0.01, colour="grey") + geom_point(size = 4, shape = 21) + theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size = 12), axis.title.x = element_text(size = 13), axis.title.y = element_text(size = 13), panel.background = element_blank(), legend.position = "none", axis.line.x = element_line(color = "black", size = 0.2), axis.line.y = element_line(color = "black", size = 0.2)) + scale_fill_manual(values = custom_fill) + scale_shape_manual(values = c(21, 23, 21, 23)) + geom_text_repel(aes(label = label), na.rm = TRUE, force = 2, box.padding = 1, max.overlaps = NA, size = 2.5, segment.linetype= "dashed", segment.size = 0.1) + labs(x = "Autosome-X Coverage Ratio (RX)", y = "Y-Coverage Ratio (RY)") 
+pdf(args[5])
+ggplot(sex_data, aes(x = RX, y = RY, label = Sample, fill = fill_var)) + geom_hline(yintercept = ((benchmark_taxa$ChrY_male_min-benchmark_taxa$ChrY_female_max)/2), linetype = "dashed", colour = "grey", linewidth = 0.5) + annotate("rect", xmin = -Inf, xmax = Inf, ymin = benchmark_taxa$ChrY_female_min, ymax = benchmark_taxa$ChrY_female_max, fill = "pink", alpha = 0.4) + annotate("rect", xmin = -Inf, xmax = Inf, ymin = benchmark_taxa$ChrY_male_min, ymax = benchmark_taxa$ChrY_male_max, fill = "#0453b1", alpha = 0.2) + geom_vline(xintercept = c(0.5), colour = "#0453b1", linewidth = 1) + geom_vline(xintercept = c(1), colour = "pink", linewidth = 1) + geom_errorbarh(aes(xmin = RX_Min, xmax = RX_Max), height = 0.005, colour="grey") + geom_errorbar(aes(ymin = (RY - RY_SE), ymax = (RY + RY_SE)), width = 0.01, colour="grey") + geom_point(size = 4, shape = 21) + theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size = 12), axis.title.x = element_text(size = 13), axis.title.y = element_text(size = 13), panel.background = element_blank(), legend.position = "none", axis.line.x = element_line(color = "black", size = 0.2), axis.line.y = element_line(color = "black", size = 0.2)) + scale_fill_manual(values = custom_fill) + scale_shape_manual(values = c(21, 23, 21, 23)) + geom_text_repel(aes(label = label), na.rm = TRUE, force = 2, box.padding = 1, max.overlaps = NA, size = 2.5, segment.linetype= "dashed", segment.size = 0.1) + labs(x = "Autosome-X Coverage Ratio (RX)", y = "Y-Coverage Ratio (RY)") 
 dev.off()
 
 #Filter dataset to keep relevant columns
 subset_sex_data <- sex_data[, c("Sample", "Mapped_Reads_Q30_NoDup", "SexID")]
 #Write to file
-write.table(subset_sex_data, file = args[3], sep = "\t",quote = FALSE,row.names = FALSE)
+write.table(subset_sex_data, file = args[6], sep = "\t",quote = FALSE,row.names = FALSE)
