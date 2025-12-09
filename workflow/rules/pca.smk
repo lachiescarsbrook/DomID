@@ -94,10 +94,14 @@ rule plot_sexID:
 rule LDA:
     input:
         evec = expand("results/smartpca/{run}_final_merged.evec", run = config["run"]),
-        status = expand("workflow/files/{taxa}_status.txt", taxa = config["SNP_panel"])
+        eval = expand("results/smartpca/{run}_final_merged.eval", run = config["run"]),
+        status = expand("workflow/files/{taxa}_status.txt", taxa = config["SNP_panel"]),
+        stats = expand("results/stats/{run}_all_stats.txt", run = config["run"])
+    params:
+        snps = config["taxonSNP"]
     output:
         expand("results/plots/{run}_posteriors.txt", run = config["run"])
     conda:
         "../envs/lda.yaml"
     shell:
-        "Rscript workflow/scripts/LDA.R {input.evec} {output} {input.status}"
+        "Rscript workflow/scripts/LDA.R {input.evec} {input.eval} {input.status} {input.stats} {params.snps} {output}"
