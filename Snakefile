@@ -14,7 +14,8 @@ include: "workflow/rules/pca.smk"
 rule all:
     input:
         "workflow/files/chromosomes.txt",
-        expand("results/adrm/{library}.settings", library = LIBRARIES.keys()),
+        expand("results/adrm/{library}_SE.collapsed.gz", library=SE_LIBS),
+        expand("results/adrm/{library}_PE.collapsed.gz", library=PE_LIBS),
         expand("results/adrm/{sample}_adrm.fq.gz", sample = SAMPLES.keys()),
         expand("results/plots/{run}_mtDNA_QC.txt", run = config["run"]),
         expand("results/stats/{run}_all_stats.txt", run = config["run"]),
