@@ -6,7 +6,8 @@
 #Combines collapsed reads from single/multiple libraries for a given sample
 rule concat_reads:
     input:
-        set = expand("results/adrm/{library}.collapsed.gz", library = LIBRARIES.keys()),
+        se = expand("results/adrm/{library}_SE.collapsed.gz", library=SE_LIBS),
+        pe = expand("results/adrm/{library}_PE.collapsed.gz", library=PE_LIBS),
         file = config["files"]
     output:
         "results/adrm/{sample}_adrm.fq.gz"
