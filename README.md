@@ -1,6 +1,6 @@
 ![Banner](figures/DomID_Logo.jpg)
 ## **Introduction**
-The Domestic Identification or `DomID` workflow takes paired-end screening data (<10M reads) as input, and accurately determines the taxonomic status (wild or domestic) of each ancient sample based on a modern reference panel, as well as calculating a suite of summary statistics (Fig. 1). The following wild and domestic taxa can be discriminated with `DomID`: 
+The Domestic Identification or `DomID` workflow takes both single- and paired-end screening data (<10M reads) as input, and accurately determines the taxonomic status (wild or domestic) of each ancient sample based on a modern reference panel, as well as calculating a suite of summary statistics (Fig. 1). The following wild and domestic taxa can be discriminated with `DomID`: 
 - :dog2: ***Canis:*** Wolf and Dog
 - :cow2: ***Bos:*** Aurochs and Cattle
 - :pig2: ***Sus:*** Wild Boar and Pig
@@ -122,16 +122,16 @@ The `DomID` workflow requires parameters specified in two user-modified files to
 <br>
 <br>
 
-**2.** `sample_file_list.tsv`: provides a tab- or space-delimited list of library names, sample names, and paths to the paired-end sequencing reads (which must have either the .fq.gz or .fastq.gz suffix)
+**2.** `sample_file_list.tsv`: provides a tab- or space-delimited list of library names, sample names, library type and paths to the sequencing reads (which must have either the .fq.gz or .fastq.gz suffix)
 
 
-| Library Name | Sample Name | Path |
-|-----------|-----|--------|
-| LS0001_A1 | NZ_Kuri | path/to/directory/with/reads |
-| LS0001_A2 | NZ_Kuri | path/to/directory/with/reads |
-| LS0002 | Australian_Dingo | path/to/directory/with/reads |
+**| Library Name | Sample Name | Library Type | Path |**
+|-----------|-----|-----|--------|
+| LS0001_A1 | NZ_Kuri | SE | path/to/directory/with/reads |
+| LS0001_A2 | NZ_Kuri | PE | path/to/directory/with/reads |
+| LS0002 | Australian_Dingo | PE | path/to/directory/with/reads |
 
-The `Library Name` string must exactly match the ID found in the name of the paired-end files (e.g. LS0001_A1_L001.fastq.gz). The `Sample Name` column can be used to combine reads from the same individual across multiple lanes or libraries, or simply to change the name of the files generated (must be <39 characters). 
+The `Library Name` string must exactly match the ID found in the name of the single/paired-end files (e.g. LS0001_A1_L001.fastq.gz). The `Sample Name` column can be used to combine reads from the same individual across multiple lanes or libraries, or simply to change the name of the files generated (must be <39 characters). The `Library Type` column must be set to either SE (single-end) or PE (paired-end). 
 
 **Note:** a header **must not be included** in the `sample_file_list.tsv`. 
 <br>
