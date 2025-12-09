@@ -12,4 +12,4 @@ fi
 #Creates a variable containing all library IDs for a given sample
 LIBRARY=$(cat $CONFIG | grep $SAMPLE | awk -F'[ \t]+' '{print $1}')
 #Combines collapsed reads from single/multiple libraries for a given sample
-for i in $LIBRARY; do cat results/adrm/${i}.collapsed.gz results/adrm/${i}.collapsed.truncated.gz >> results/adrm/${SAMPLE}_adrm.fq.gz; done
+for i in $LIBRARY; do cat results/adrm/${i}_*.collapsed*.gz >> results/adrm/${SAMPLE}_adrm.fq.gz; done
