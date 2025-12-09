@@ -124,12 +124,12 @@ The `DomID` workflow requires parameters specified in two user-modified files to
 
 **2.** `sample_file_list.tsv`: provides a tab- or space-delimited list of library names, sample names, library type and paths to the sequencing reads (which must have either the .fq.gz or .fastq.gz suffix)
 
-
-**| Library Name | Sample Name | Library Type | Path |**
-|-----------|-----|-----|--------|
-| LS0001_A1 | NZ_Kuri | SE | path/to/directory/with/reads |
-| LS0001_A2 | NZ_Kuri | PE | path/to/directory/with/reads |
-| LS0002 | Australian_Dingo | PE | path/to/directory/with/reads |
+| Library Name | Sample Name       | Library Type | Path                              |
+|--------------|-------------------|--------------|-----------------------------------|
+| LS0001_A1    | NZ_Kuri           | SE           | path/to/directory/with/reads      |
+| LS0001_A2    | NZ_Kuri           | PE           | path/to/directory/with/reads      |
+| LS0002       | Australian_Dingo  | PE           | path/to/directory/with/reads      |
+<br>
 
 The `Library Name` string must exactly match the ID found in the name of the single/paired-end files (e.g. LS0001_A1_L001.fastq.gz). The `Sample Name` column can be used to combine reads from the same individual across multiple lanes or libraries, or simply to change the name of the files generated (must be <39 characters). The `Library Type` column must be set to either SE (single-end) or PE (paired-end). 
 
