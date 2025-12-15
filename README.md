@@ -68,7 +68,7 @@ To ensure genotypes in each reference panel can be directly compared with the un
 - :dog2: ***Canis:*** A custom version of the [CanFam3.1](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000002285.5) dog genome assembly, which has been modified to contain a Y-chromosome for sex determination. To download, ensure you are in the `DomID` directory, and use the following:
 
 ```
-TAG="1.0"
+TAG="1.0-beta"
 TAXA="canis"
 
 wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/${TAXA}.fa.gz -O ./workflow/files/${TAXA}.fa.gz
@@ -95,7 +95,7 @@ mamba deactivate bwa
 For each taxa, we have released a reference panel (in binary PLINK format) containing biallelic transversional SNPs, which are used to determine the taxonomic status of each sample through a combination of PCA projection and discriminant function analysis. To download, ensure you are still in the `DomID` directory, and use the following:
 
 ```
-TAG="1.0"
+TAG="1.0-beta"
 TAXA="canis"
 
 wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/${TAXA}.bed -O ./workflow/files/${TAXA}.bed
