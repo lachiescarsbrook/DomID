@@ -5,7 +5,6 @@ The Domestic Identification or `DomID` workflow takes both single- and paired-en
 - :cow2: ***Bos:*** Aurochs and Cattle
 - :pig2: ***Sus:*** Wild Boar and Pig
 - :rabbit2: ***Oryctolagus:*** Wild and Domestic Rabbit
-- ***Mustela:*** Polecat and Ferret
 
 ## **Citation**
 The manuscript which presents `DomID` is currently in preparation. In the meantime, please cite this workflow as follows: 
@@ -72,7 +71,7 @@ TAG="1.0-beta"
 TAXA="canis"
 
 wget https://github.com/lachiescarsbrook/DomID/releases/download/${TAG}/${TAXA}.fa.gz -O ./workflow/files/${TAXA}.fa.gz
-unzip workflow/files/${TAXA}.fa.gz
+gunzip workflow/files/${TAXA}.fa.gz
 ```
 - :cow2: ***Bos:***
 - :pig2: ***Sus:***
